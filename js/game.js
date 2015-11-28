@@ -1,9 +1,9 @@
-define(['game-object', 'ball', 'play-area'], function (GameObject, Ball, PlayArea) {
+define(['behaviour', 'ball', 'play-area'], function (Behaviour, Ball, PlayArea) {
     'use strict';
 
-    var Game = GameObject.extend({
+    var Game = Behaviour.extend({
         create: function () {
-            GameObject.prototype.create.apply(this, arguments);
+            Behaviour.prototype.create.apply(this, arguments);
 
             this.width = 1200;
             this.height = 600;
@@ -57,7 +57,7 @@ define(['game-object', 'ball', 'play-area'], function (GameObject, Ball, PlayAre
             this.scene.add(pointLight);
         },
         update: function () {
-            GameObject.prototype.update.apply(this, arguments);
+            Behaviour.prototype.update.apply(this, arguments);
             this.renderer.render(this.scene, this.camera);
             requestAnimationFrame(this.update.bind(this));
         }

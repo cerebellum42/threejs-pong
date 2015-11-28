@@ -1,5 +1,5 @@
 define(['lib/jsclass'], function (JSClass) {
-    var GameObject = new JSClass({
+    var Behaviour = new JSClass({
         create: function () {
             this.children = [];
             this.parent = null;
@@ -23,5 +23,5 @@ define(['lib/jsclass'], function (JSClass) {
         }
     });
 
-    return GameObject;
+    return Behaviour;
 });

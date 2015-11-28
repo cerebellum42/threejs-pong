@@ -1,7 +1,7 @@
-define(['game-object', 'lib/jsclass'], function (GameObject, JSClass) {
-    var Ball = GameObject.extend({
+define(['behaviour', 'lib/jsclass'], function (Behaviour, JSClass) {
+    var Ball = Behaviour.extend({
         create: function (options) {
-            GameObject.prototype.create.apply(this, arguments);
+            Behaviour.prototype.create.apply(this, arguments);
             this.options = options;
         },
         start: function () {

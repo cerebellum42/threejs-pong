@@ -1,7 +1,7 @@
-define(['game-object'], function (GameObject) {
-    var PlayArea = GameObject.extend({
+define(['behaviour'], function (Behaviour) {
+    var PlayArea = Behaviour.extend({
         create: function (options) {
-            GameObject.prototype.create.apply(this, arguments);
+            Behaviour.prototype.create.apply(this, arguments);
             this.options = options;
         },
         start: function () {
