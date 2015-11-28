@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+  <title>Three.js Pong</title>
+  <link href="css/pong.css" />
+  <script src="js/three.js"></script>
+  <script src="js/require.js"></script>
+  <script>
+    require.config({
+      baseUrl: '/js',
+    });
+    require(['game'], function(game) {
+      game.init();
+    });
+  </script>
+</head>
+<body>
+  <div id="game-canvas"></div>
+</body>
+</html>
