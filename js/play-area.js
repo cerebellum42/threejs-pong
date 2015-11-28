@@ -1,27 +1,24 @@
-define([], function () {
+define(['game-object'], function (GameObject) {
     var PlayArea = GameObject.extend({
         create: function (options) {
             GameObject.prototype.create.apply(this, arguments);
             this.options = options;
         },
         start: function () {
-            // create the plane's material
-            var planeMaterial =
-                new THREE.MeshLambertMaterial(
-                    {
-                        color: 0x4BD121
-                    });
+            var material = new THREE.MeshLambertMaterial({
+                color: 0x111111
+            });
 
             // create the playing surface plane
             var plane = new THREE.Mesh(
                 new THREE.PlaneGeometry(
-                    this.options.planeWidth * 0.95,	// 95% of table width, since we want to show where the ball goes out-of-bounds
-                    this.options.planeHeight,
-                    this.options.planeQuality,
-                    this.options.planeQuality),
-                this.options.planeMaterial);
+                    this.options.width * 0.95,	// 95% of table width, since we want to show where the ball goes out-of-bounds
+                    this.options.height,
+                    1, 1),
+                material
+            );
 
-            scene.add(plane);
+            this.options.scene.add(plane);
         }
     });
 

@@ -1,8 +1,8 @@
 define(['game-object', 'lib/jsclass'], function (GameObject, JSClass) {
     var Ball = GameObject.extend({
-        create: function (game) {
+        create: function (options) {
             GameObject.prototype.create.apply(this, arguments);
-            this.game = game;
+            this.options = options;
         },
         start: function () {
             var sphereMaterial = new THREE.MeshLambertMaterial({
@@ -10,11 +10,11 @@ define(['game-object', 'lib/jsclass'], function (GameObject, JSClass) {
             });
 
             var ball = new THREE.Mesh(
-                new THREE.SphereGeometry(10, 10, 10),
+                new THREE.SphereGeometry(this.options.size, 10, 10),
                 sphereMaterial
             );
 
-            this.game.scene.add(ball);
+            this.options.scene.add(ball);
         }
     });
     return Ball;
