@@ -20,6 +20,7 @@ define(['lib/jsclass'], function (JSClass) {
             go.parent = this;
             go.start();
             this.children.push(go);
+            return go;
         }
     });
 

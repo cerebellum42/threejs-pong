@@ -1,4 +1,4 @@
-define(['behaviour', 'ball', 'play-area'], function (Behaviour, Ball, PlayArea) {
+define(['behaviour', 'ball', 'play-area', 'rotatable-camera'], function (Behaviour, Ball, PlayArea, RotatableCamera) {
     'use strict';
 
     var Game = Behaviour.extend({
@@ -7,17 +7,26 @@ define(['behaviour', 'ball', 'play-area'], function (Behaviour, Ball, PlayArea) 
 
             this.width = 1200;
             this.height = 600;
-            this.gameCanvas = document.getElementById('game-canvas');
-            this.fieldOfView = 60;
+            this.canvasWrapper = document.getElementById('game-canvas');
         },
         start: function () {
             this.renderer = new THREE.WebGLRenderer();
             this.renderer.setSize(this.width, this.height);
-            this.gameCanvas.appendChild(this.renderer.domElement);
+            this.canvasWrapper.appendChild(this.renderer.domElement);
 
             this.scene = new THREE.Scene();
 
-            this.addCamera();
+            this.cameraScript = this.addChild(
+                new RotatableCamera({
+                    aspectRatio: this.width / this.height,
+                    fieldOfView: 60,
+                    distance: 250,
+                    scene: this.scene,
+                    renderer: this.renderer,
+                    domElement: this.renderer.domElement
+                })
+            );
+
             this.addLight();
 
             this.addChild(
@@ -37,16 +46,6 @@ define(['behaviour', 'ball', 'play-area'], function (Behaviour, Ball, PlayArea) 
 
             this.update();
         },
-        addCamera: function () {
-            this.camera = new THREE.PerspectiveCamera(
-                this.fieldOfView,
-                this.width / this.height,
-                0.1,
-                5000
-            );
-            this.camera.position.z = 250;
-            this.scene.add(this.camera);
-        },
         addLight: function () {
             var pointLight = new THREE.PointLight(0xF8D898);
             pointLight.position.x = -1000;
@@ -58,7 +57,7 @@ define(['behaviour', 'ball', 'play-area'], function (Behaviour, Ball, PlayArea) 
         },
         update: function () {
             Behaviour.prototype.update.apply(this, arguments);
-            this.renderer.render(this.scene, this.camera);
+            this.renderer.render(this.scene, this.cameraScript.camera);
             requestAnimationFrame(this.update.bind(this));
         }
     });
