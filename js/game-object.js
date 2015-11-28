@@ -1,4 +1,4 @@
-define(['JSClass'], function(JSClass) {
+define(['lib/jsclass'], function(JSClass) {
   var GameObject = new JSClass({
     create: function() {
       this.children = [];

@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Three.js Pong",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node ./node_modules/http-server/bin/http-server"
   },
   "repository": {
     "type": "git",
@@ -14,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/cerebellum42/threejs-pong/issues"
   },
-  "homepage": "https://github.com/cerebellum42/threejs-pong#readme"
+  "homepage": "https://github.com/cerebellum42/threejs-pong#readme",
+  "dependencies": {
+    "http-server": "^0.8.5"
+  }
 }

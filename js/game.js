@@ -1,4 +1,4 @@
-define(['./game-object', './ball', 'JSClass'], function(GameObject, Ball, JSClass) {
+define(['game-object', 'ball', 'lib/jsclass'], function(GameObject, Ball, JSClass) {
   var Game = GameObject.extend({
     create: function() {
       GameObject.prototype.create.apply(this, arguments);
