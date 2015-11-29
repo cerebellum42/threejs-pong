@@ -6,9 +6,9 @@ define(['lib/jsclass'], function (JSClass) {
         },
         start: function () {
         },
-        update: function () {
+        update: function (delta) {
             this.children.forEach(function (child) {
-                child.update();
+                child.update(delta);
             });
         },
         fixedUpdate: function () {

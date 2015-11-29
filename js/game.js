@@ -44,12 +44,15 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], functio
                 })
             );
 
+            var paddleSpeed = 10;
+
             this.paddle1 = this.addChild(
                 new Paddle({
                     scene: this.scene,
-                    domElement: this.renderer.domElement,
+                    domElement: window,
                     paddleWidth: 40,
                     basePosition: new THREE.Vector2(0, 125),
+                    speed: paddleSpeed,
                     keys: {
                         left: 37, // left arrow
                         right: 39 // right arrow
@@ -60,9 +63,10 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], functio
             this.paddle2 = this.addChild(
                 new Paddle({
                     scene: this.scene,
-                    domElement: this.renderer.domElement,
+                    domElement: window,
                     paddleWidth: 40,
                     basePosition: new THREE.Vector2(0, -125),
+                    speed: paddleSpeed,
                     keys: {
                         left: 89, // y
                         right: 88 // x
@@ -70,7 +74,9 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], functio
                 })
             );
 
-            this.update();
+            this.clock = new THREE.Clock(true);
+            this.delta = 0;
+            this.update(this.delta);
         },
         addLight: function () {
             var mainLight = new THREE.PointLight(0xF8D898);
@@ -89,15 +95,16 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], functio
             offLight.distance = 5000;
             this.scene.add(offLight);
         },
-        update: function () {
-            Behaviour.prototype.update.apply(this, arguments);
+        update: function (delta) {
+            this.delta = this.clock.getDelta();
+            Behaviour.prototype.update.apply(this, [this.delta]);
             this.renderer.render(this.scene, this.cameraScript.camera);
             requestAnimationFrame(this.update.bind(this));
         }
     });
 
     return {
-        game: Game,
+        Game: Game,
         init: function () {
             var g = new Game();
             g.start();

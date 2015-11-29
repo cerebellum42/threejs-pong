@@ -4,7 +4,7 @@
   "description": "Three.js Pong",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node ./node_modules/http-server/bin/http-server"
+    "start": "node ./node_modules/http-server/bin/http-server"
   },
   "repository": {
     "type": "git",

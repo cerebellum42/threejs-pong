@@ -19,6 +19,7 @@ define(['behaviour', 'lib/OrbitControls'], function (Behaviour, OrbitControls) {
             var controls = new THREE.OrbitControls( this.camera, this.options.domElement );
             controls.enableDamping = true;
             controls.dampingFactor = .5;
+            controls.enableKeys = false;
             controls.enableZoom = true;
             this.controls = controls;
         }

@@ -1,5 +1,5 @@
 define(['behaviour'], function(Behaviour) {
-    var STATES = {
+    var State = {
         DEFAULT: 1,
         MOVE_LEFT: 2,
         MOVE_RIGHT: 3
@@ -21,24 +21,34 @@ define(['behaviour'], function(Behaviour) {
             paddleMesh.position.x = this.options.basePosition.x;
             paddleMesh.position.y = this.options.basePosition.y;
             paddleMesh.position.z = 5;
+            this.mesh = paddleMesh;
             this.options.scene.add(paddleMesh);
+
+            this.state = State.DEFAULT;
 
             this.options.domElement.addEventListener('keydown', this.onKeyDown.bind(this));
             this.options.domElement.addEventListener('keyup', this.onKeyUp.bind(this));
         },
         onKeyDown: function(e) {
+            console.log("keydown");
             if (e.keyCode == this.options.keys.left) {
-                this.state = STATES.MOVE_RIGHT;
+                this.state = State.MOVE_LEFT;
             } else if (e.keyCode == this.options.keys.right) {
-                this.state = STATES.MOVE_LEFT;
+                this.state = State.MOVE_RIGHT;
             }
         },
         onKeyUp: function(e) {
             if (e.keyCode == this.options.keys.left || e.keyCode == this.options.keys.right) {
-                this.state = STATES.DEFAULT;
+                this.state = State.DEFAULT;
             }
         },
-        update: function(e) {
+        update: function(delta) {
+            Behaviour.prototype.update.apply(this, arguments);
+            if (this.state == State.MOVE_LEFT) {
+                this.mesh.position.x -= delta * 10 * this.options.speed;
+            } else if (this.state == State.MOVE_RIGHT) {
+                this.mesh.position.x += delta * 10 * this.options.speed;
+            }
         }
     });
 });
