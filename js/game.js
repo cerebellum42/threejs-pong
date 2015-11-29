@@ -1,4 +1,4 @@
-define(['behaviour', 'ball', 'play-area', 'rotatable-camera'], function (Behaviour, Ball, PlayArea, RotatableCamera) {
+define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], function (Behaviour, Ball, PlayArea, RotatableCamera, Paddle) {
     'use strict';
 
     var Game = Behaviour.extend({
@@ -44,16 +44,50 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera'], function (Behavio
                 })
             );
 
+            this.paddle1 = this.addChild(
+                new Paddle({
+                    scene: this.scene,
+                    domElement: this.renderer.domElement,
+                    paddleWidth: 40,
+                    basePosition: new THREE.Vector2(0, 125),
+                    keys: {
+                        left: 37, // left arrow
+                        right: 39 // right arrow
+                    }
+                })
+            );
+
+            this.paddle2 = this.addChild(
+                new Paddle({
+                    scene: this.scene,
+                    domElement: this.renderer.domElement,
+                    paddleWidth: 40,
+                    basePosition: new THREE.Vector2(0, -125),
+                    keys: {
+                        left: 89, // y
+                        right: 88 // x
+                    }
+                })
+            );
+
             this.update();
         },
         addLight: function () {
-            var pointLight = new THREE.PointLight(0xF8D898);
-            pointLight.position.x = -1000;
-            pointLight.position.y = 0;
-            pointLight.position.z = 1000;
-            pointLight.intensity = 3;
-            pointLight.distance = 10000;
-            this.scene.add(pointLight);
+            var mainLight = new THREE.PointLight(0xF8D898);
+            mainLight.position.x = -1000;
+            mainLight.position.y = 0;
+            mainLight.position.z = 1000;
+            mainLight.intensity = 3;
+            mainLight.distance = 5000;
+            this.scene.add(mainLight);
+
+            var offLight = new THREE.PointLight(0xF8D898);
+            offLight.position.x = 1000;
+            offLight.position.y = 0;
+            offLight.position.z = 1000;
+            offLight.intensity = 1;
+            offLight.distance = 5000;
+            this.scene.add(offLight);
         },
         update: function () {
             Behaviour.prototype.update.apply(this, arguments);

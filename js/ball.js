@@ -10,9 +10,11 @@ define(['behaviour', 'lib/jsclass'], function (Behaviour, JSClass) {
             });
 
             var ball = new THREE.Mesh(
-                new THREE.SphereGeometry(this.options.size, 10, 10),
+                new THREE.SphereGeometry(this.options.size, 16, 16),
                 sphereMaterial
             );
+
+            ball.position.z = this.options.size;
 
             this.options.scene.add(ball);
         }
