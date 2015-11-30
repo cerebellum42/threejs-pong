@@ -91,6 +91,7 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], functio
              * game loop implementieren
              * Zeit seit dem letzten Aufruf berechnen (delta)
              * update(delta) der übergeordneten Klasse (Behaviour) aufrufen
+             * renderer rendern lassen
              */
         }
     });
