@@ -10,15 +10,15 @@ define(['behaviour'], function (Behaviour) {
             });
 
             // create the playing surface plane
-            var plane = new THREE.Mesh(
+            this.mesh = new THREE.Mesh(
                 new THREE.PlaneGeometry(
-                    this.options.width * 0.95,	// 95% of table width, since we want to show where the ball goes out-of-bounds
+                    this.options.width,	// 95% of table width, since we want to show where the ball goes out-of-bounds
                     this.options.height,
                     1, 1),
                 material
             );
 
-            this.options.scene.add(plane);
+            this.options.scene.add(this.mesh);
         }
     });
 

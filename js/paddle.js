@@ -30,7 +30,6 @@ define(['behaviour'], function(Behaviour) {
             this.options.domElement.addEventListener('keyup', this.onKeyUp.bind(this));
         },
         onKeyDown: function(e) {
-            console.log("keydown");
             if (e.keyCode == this.options.keys.left) {
                 this.state = State.MOVE_LEFT;
             } else if (e.keyCode == this.options.keys.right) {
@@ -49,6 +48,9 @@ define(['behaviour'], function(Behaviour) {
             } else if (this.state == State.MOVE_RIGHT) {
                 this.mesh.position.x += delta * 10 * this.options.speed;
             }
+        },
+        getHorizontalBounds: function() {
+            return [this.mesh.position.x - this.options.paddleWidth/2, this.mesh.position.x + this.options.paddleWidth/2];
         }
     });
 });

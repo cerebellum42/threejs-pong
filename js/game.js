@@ -29,24 +29,34 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], functio
 
             this.addLight();
 
-            this.addChild(
-                new Ball({
-                    scene: this.scene,
-                    size: 7
-                })
-            );
+            var fieldWidth = 180;
+            var fieldHeight = 250;
 
-            this.addChild(
+            var plane = this.addChild(
                 new PlayArea({
                     scene: this.scene,
-                    width: 180,
-                    height: 250
+                    width: fieldWidth,
+                    height: fieldHeight
                 })
             );
 
             var paddleSpeed = 10;
 
-            this.paddle1 = this.addChild(
+            var paddle1 = this.addChild(
+                new Paddle({
+                    scene: this.scene,
+                    domElement: window,
+                    paddleWidth: 40,
+                    basePosition: new THREE.Vector2(0, -125),
+                    speed: paddleSpeed,
+                    keys: {
+                        left: 89, // y
+                        right: 88 // x
+                    }
+                })
+            );
+
+            var paddle2 = this.addChild(
                 new Paddle({
                     scene: this.scene,
                     domElement: window,
@@ -60,17 +70,17 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], functio
                 })
             );
 
-            this.paddle2 = this.addChild(
-                new Paddle({
+            this.addChild(
+                new Ball({
                     scene: this.scene,
-                    domElement: window,
-                    paddleWidth: 40,
-                    basePosition: new THREE.Vector2(0, -125),
-                    speed: paddleSpeed,
-                    keys: {
-                        left: 89, // y
-                        right: 88 // x
-                    }
+                    size: 7,
+                    speed: 10,
+                    bounds: {
+                        x: [fieldWidth/(-2), fieldWidth/2],
+                        y: [fieldHeight/(-2), fieldHeight/2]
+                    },
+                    paddles: [paddle1, paddle2],
+                    slice: 5
                 })
             );
 

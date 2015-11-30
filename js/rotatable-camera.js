@@ -3,7 +3,6 @@ define(['behaviour', 'lib/OrbitControls'], function (Behaviour, OrbitControls) {
         create: function (options) {
             Behaviour.prototype.create.apply(this, arguments);
             this.options = options;
-            this.rotating = false;
             this.controls = null;
         },
         start: function () {
