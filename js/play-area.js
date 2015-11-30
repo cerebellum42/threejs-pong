@@ -12,7 +12,7 @@ define(['behaviour'], function (Behaviour) {
             // create the playing surface plane
             this.mesh = new THREE.Mesh(
                 new THREE.PlaneGeometry(
-                    this.options.width,	// 95% of table width, since we want to show where the ball goes out-of-bounds
+                    this.options.width,
                     this.options.height,
                     1, 1),
                 material
