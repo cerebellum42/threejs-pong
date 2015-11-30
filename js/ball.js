@@ -2,10 +2,13 @@ define(['behaviour'], function (Behaviour) {
     var Ball = Behaviour.extend({
         create: function (options) {
             Behaviour.prototype.create.apply(this, arguments);
-            this.options = options;
+            this.options = Object.assign({}, Ball.defaultOptions, options);
             this.direction = new THREE.Vector2(0, 0);
 
+            // calculate the bounds in which the ball is allowed to move, used for wall collision detection
             this.bounds = this.options.bounds;
+
+            // add/subtract Ball size from the given bounds since the mesh position refers to the center of the mesh
             this.bounds.x[0] += this.options.size;
             this.bounds.x[1] -= this.options.size;
             this.bounds.y[0] += this.options.size;
@@ -14,6 +17,9 @@ define(['behaviour'], function (Behaviour) {
             this.paddles = [];
             if (this.options.paddles) this.paddles = this.options.paddles;
         },
+        /**
+         * Initialize Geometry and material
+         */
         start: function () {
             var sphereMaterial = new THREE.MeshLambertMaterial({
                 color: 0xD43001
@@ -28,6 +34,10 @@ define(['behaviour'], function (Behaviour) {
             this.mesh.position.z = this.options.size;
             this.options.scene.add(this.mesh);
         },
+        /**
+         * Reset the ball's position and velocity to origin and start moving again after a set delay
+         * @param dir -1 or 1, depending on which direction the ball is supposed to move after resetting (up or down)
+         */
         reset: function(dir) {
             this.direction.set(0, 0);
             setTimeout((function() {
@@ -75,6 +85,15 @@ define(['behaviour'], function (Behaviour) {
             } else {
                 return null;
             }
+        }
+    }).static({
+        defaultOptions: {
+            scene: null,
+            size: 7,
+            speed: 10,
+            bounds: null,
+            paddles: [],
+            slice: 5
         }
     });
     return Ball;

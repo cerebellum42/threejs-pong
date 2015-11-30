@@ -16,18 +16,17 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], functio
 
             this.scene = new THREE.Scene();
 
+
             this.cameraScript = this.addChild(
                 new RotatableCamera({
                     aspectRatio: this.width / this.height,
-                    fieldOfView: 60,
-                    distance: 250,
                     scene: this.scene,
                     renderer: this.renderer,
                     domElement: this.renderer.domElement
                 })
             );
 
-            this.addLight();
+            this.addLights();
 
             var fieldWidth = 180;
             var fieldHeight = 250;
@@ -73,14 +72,11 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], functio
             this.addChild(
                 new Ball({
                     scene: this.scene,
-                    size: 7,
-                    speed: 10,
                     bounds: {
                         x: [fieldWidth/(-2), fieldWidth/2],
                         y: [fieldHeight/(-2), fieldHeight/2]
                     },
-                    paddles: [paddle1, paddle2],
-                    slice: 5
+                    paddles: [paddle1, paddle2]
                 })
             );
 
@@ -88,7 +84,10 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], functio
             this.delta = 0;
             this.update(this.delta);
         },
-        addLight: function () {
+        /**
+         * Add lights to the scene
+         */
+        addLights: function () {
             var mainLight = new THREE.PointLight(0xF8D898);
             mainLight.position.x = -1000;
             mainLight.position.y = 0;
@@ -105,7 +104,11 @@ define(['behaviour', 'ball', 'play-area', 'rotatable-camera', 'paddle'], functio
             offLight.distance = 5000;
             this.scene.add(offLight);
         },
-        update: function (delta) {
+        /**
+         * Calls itself every frame through requestAnimationFrame and manages passing and calculating
+         * the time delta to its child objects
+         */
+        update: function () {
             this.delta = this.clock.getDelta();
             Behaviour.prototype.update.apply(this, [this.delta]);
             this.renderer.render(this.scene, this.cameraScript.camera);

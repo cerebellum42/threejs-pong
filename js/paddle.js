@@ -4,10 +4,10 @@ define(['behaviour'], function(Behaviour) {
         MOVE_LEFT: 2,
         MOVE_RIGHT: 3
     };
-    return Behaviour.extend({
+    var Paddle = Behaviour.extend({
         create: function(options) {
             Behaviour.prototype.create.apply(this, arguments);
-            this.options = options;
+            this.options = Object.assign({}, Paddle.defaultOptions, options);
         },
         start: function() {
             var material = new THREE.MeshLambertMaterial({
@@ -52,5 +52,18 @@ define(['behaviour'], function(Behaviour) {
         getHorizontalBounds: function() {
             return [this.mesh.position.x - this.options.paddleWidth/2, this.mesh.position.x + this.options.paddleWidth/2];
         }
+    }).static({
+        defaultOptions: {
+            scene: null,
+            domElement: null,
+            paddleWidth: 40,
+            basePosition: new THREE.Vector2(0, 0),
+            speed: 10,
+            keys: {
+                left: 89, // y
+                right: 88 // x
+            }
+        }
     });
+    return Paddle;
 });

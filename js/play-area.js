@@ -2,7 +2,7 @@ define(['behaviour'], function (Behaviour) {
     var PlayArea = Behaviour.extend({
         create: function (options) {
             Behaviour.prototype.create.apply(this, arguments);
-            this.options = options;
+            this.options = Object.assign({}, PlayArea.defaultOptions, options);
         },
         start: function () {
             var material = new THREE.MeshLambertMaterial({
@@ -19,6 +19,12 @@ define(['behaviour'], function (Behaviour) {
             );
 
             this.options.scene.add(this.mesh);
+        }
+    }).static({
+        defaultOptions: {
+            scene: null,
+            width: null,
+            height: null
         }
     });
 
